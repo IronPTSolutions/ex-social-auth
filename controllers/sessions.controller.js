@@ -37,3 +37,8 @@ module.exports.doCreate = (req, res, next) => {
     })(req, res, next);
   }
 }
+
+module.exports.delete = (req, res, next) => {
+  req.logout();
+  res.redirect('/sessions/create');
+}
