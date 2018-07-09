@@ -7,6 +7,8 @@ const logger = require('morgan');
 require('./configs/db.config');
 require('./configs/hbs.config');
 
+const usersRouter = require('./routes/users.routes');
+
 const app = express();
 
 // view engine setup
@@ -19,9 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', (req, res) => {
-  res.render('sessions/create')
-})
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

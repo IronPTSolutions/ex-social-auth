@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function(next) {
   if (this.isModified('password')) {
     bcrypt.genSalt(SALT_WORK_FACTOR)
       .then(salt => {
