@@ -1,23 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Social Auth</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav-content" aria-controls="main-nav-content"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+	<a class="navbar-brand" href="#">Social Auth</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav-content" aria-controls="main-nav-content"
+	 aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-    <div class="collapse navbar-collapse" id="main-nav-content">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/sessions/create">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/users/create">Register</a>
-            </li>
-        </ul>
-    </div>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="/sessions/delete">Logout</a>
-        </li>
-    </ul>
+	<div class="collapse navbar-collapse" id="main-nav-content">
+		<ul class="navbar-nav mr-auto">
+			{{#if session}}
+				<li class="nav-item active">
+					<a class="nav-link" href="/users/list">Users</a>
+				</li>
+			{{else}}
+				<li class="nav-item active">
+					<a class="nav-link" href="/sessions/create">Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/users/create">Register</a>
+				</li>
+			{{/if}}
+		</ul>
+	</div>
+	<ul class="navbar-nav mr-auto">
+		{{#if session}}
+			<li class="nav-item">
+				<a class="nav-link disabled" href="javascript:;">{{ session.email }}</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/sessions/delete">Logout</a>
+			</li>
+		{{/if}}
+	</ul>
 </nav>
