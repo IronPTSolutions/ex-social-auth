@@ -30,7 +30,7 @@ module.exports.doCreate = (req, res, next) => {
           if (error) {
             next(error)
           } else {
-            res.redirect(`/users/${user._id}`)
+            res.redirect(`/users`)
           }
         });
       }
