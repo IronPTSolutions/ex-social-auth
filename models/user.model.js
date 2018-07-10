@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: 'Password is required',
+  },
+  social: {
+    googleId: String,
+    facebookId: String
   }
 }, { timestamps: true });
 

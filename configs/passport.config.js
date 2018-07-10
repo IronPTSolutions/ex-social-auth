@@ -1,5 +1,7 @@
 const User = require('../models/user.model');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const FBStrategy = require('passport-facebook').Strategy;
 
 module.exports.setup = (passport) => {
 
@@ -36,4 +38,41 @@ module.exports.setup = (passport) => {
       })
       .catch(error => next(error));
   }));
+
+  passport.use('google-auth', new GoogleStrategy({
+    clientID: process.env.GOOGLE_AUTH_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET || '',
+    callbackURL: process.env.GOOGLE_AUTH_CB || '/sessions/google/cb',
+  }, authenticateOAuthUser));
+
+  passport.use('facebook-auth', new FBStrategy({
+    clientID: process.env.FB_AUTH_CLIENT_ID || '',
+    clientSecret: process.env.FB_AUTH_CLIENT_SECRET || '',
+    callbackURL: process.env.FB_AUTH_CB || '/sessions/facebook/cb',
+    profileFields: ['displayName', 'emails']
+  }, authenticateOAuthUser));
+
+  function authenticateOAuthUser(accessToken, refreshToken, profile, next) {
+    let socialId = `${profile.provider}Id`;
+    User.findOne({ [`social.${socialId}`]: profile.id })
+      .then(user => {
+        if (user) {
+          next(null, user);
+        } else {
+          user = new User({
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            password: Math.random().toString(36).substring(7),
+            social: {
+              [socialId]: profile.id
+            }
+          })
+          return user.save()
+            .then(user => {
+              next(null, user);
+            });
+        }
+      })
+      .catch(error => next(error));
+  }
 }
