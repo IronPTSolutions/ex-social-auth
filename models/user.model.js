@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
+const FIRST_ADMIN_EMAIL = process.env.FIRST_ADMIN_EMAIL;
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,10 +21,19 @@ const userSchema = new mongoose.Schema({
   social: {
     googleId: String,
     facebookId: String
+  },
+  role: {
+    type: String,
+    enum: ['ADMIN', 'GUEST'],
+    default: 'GUEST'
   }
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
+  if (this.email === FIRST_ADMIN_EMAIL) {
+    this.role = 'ADMIN';
+  }
+
   if (this.isModified('password')) {
     bcrypt.genSalt(SALT_WORK_FACTOR)
       .then(salt => {

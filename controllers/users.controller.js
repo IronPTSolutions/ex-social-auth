@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const mongoose = require('mongoose');
 const User = require('../models/user.model');
 
@@ -41,4 +42,16 @@ module.exports.doCreate = (req, res, next) => {
         next(error);
       }
     })
+}
+
+module.exports.doDelete = (req, res, next) => {
+  User.findByIdAndRemove(req.params.id)
+    .then(user => {
+      if (!user) {
+        next(createError(404, 'User not found'));
+      } else {
+        res.redirect('/users');
+      }
+    })
+    .catch(error => next(error));
 }

@@ -1,5 +1,17 @@
-<ul class="mt-5">
+<ul class="list-group mt-5">
   {{#each users as |user|}}
-    <li>{{ user.email }}</li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        {{ user.email }}
+        {{#isAdmin user}}
+          <span class="badge badge-danger">A</span>
+        {{else}}
+          <span class="badge badge-primary">G</span>
+        {{/isAdmin}}
+      </div>
+      <form action="/users/{{user._id}}/delete" method="post" class="float-right">
+        <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i></button>
+      </form>
+    </li>
   {{/each}}
 </ul>
