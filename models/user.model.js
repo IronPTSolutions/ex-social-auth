@@ -1,3 +1,5 @@
+
+const constants = require('../constants');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
@@ -24,14 +26,14 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['ADMIN', 'GUEST'],
-    default: 'GUEST'
+    enum: [constants.ROLE_ADMIN, constants.ROLE_GUEST],
+    default: constants.ROLE_GUEST
   }
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
   if (this.email === FIRST_ADMIN_EMAIL) {
-    this.role = 'ADMIN';
+    this.role = constants.ROLE_ADMIN;
   }
 
   if (this.isModified('password')) {
