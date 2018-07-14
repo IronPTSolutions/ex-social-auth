@@ -9,9 +9,13 @@
           <span class="badge badge-primary">G</span>
         {{/isAdmin}}
       </div>
-      <form action="/users/{{user._id}}/delete" method="post" class="float-right">
-        <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i></button>
-      </form>
+      {{#isAdmin ../session }}
+        <form action="/users/{{user._id}}/delete" method="post" class="float-right">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-times"></i>
+          </button>
+        </form>
+      {{/isAdmin}}
     </li>
   {{/each}}
 </ul>
