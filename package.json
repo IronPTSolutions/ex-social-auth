@@ -1,6 +1,6 @@
 {
   "name": "ex-social-auth",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "DEBUG=ex-social-auth:* nodemon -e hbs,js ./bin/www",
