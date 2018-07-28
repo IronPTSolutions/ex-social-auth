@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "DEBUG=ex-social-auth:* nodemon -e hbs,js ./bin/www",
+    "dev": "DEBUG=ex-social-auth:* nodemon -e hbs,js --inspect ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {
