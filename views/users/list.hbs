@@ -4,9 +4,9 @@
       <div>
         {{ user.email }}
         {{#isAdmin user}}
-          <span class="badge badge-danger">A</span>
+          <span class="badge badge-danger">ADMIN</span>
         {{else}}
-          <span class="badge badge-primary">G</span>
+          <span class="badge badge-primary">GUEST</span>
         {{/isAdmin}}
       </div>
       {{#isAdmin ../session }}

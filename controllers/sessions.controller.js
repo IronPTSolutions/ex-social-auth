@@ -13,7 +13,8 @@ module.exports.doCreate = (req, res, next) => {
     });
   }
 
-  const { email, password } = req.body;
+  let { email, password } = req.body;
+
   if (!email || !password) {
     renderWithErrors({
       email: email ? undefined : 'Email is required',

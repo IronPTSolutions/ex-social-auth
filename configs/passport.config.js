@@ -40,14 +40,14 @@ module.exports.setup = (passport) => {
   }));
 
   passport.use('google-auth', new GoogleStrategy({
-    clientID: process.env.GOOGLE_AUTH_CLIENT_ID || '',
-    clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET || '',
+    clientID: process.env.GOOGLE_AUTH_CLIENT_ID || 'todo',
+    clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET || 'todo',
     callbackURL: process.env.GOOGLE_AUTH_CB || '/sessions/google/cb',
   }, authenticateOAuthUser));
 
   passport.use('facebook-auth', new FBStrategy({
-    clientID: process.env.FB_AUTH_CLIENT_ID || '',
-    clientSecret: process.env.FB_AUTH_CLIENT_SECRET || '',
+    clientID: process.env.FB_AUTH_CLIENT_ID || 'todo',
+    clientSecret: process.env.FB_AUTH_CLIENT_SECRET || 'todo',
     callbackURL: process.env.FB_AUTH_CB || '/sessions/facebook/cb',
     profileFields: ['displayName', 'emails']
   }, authenticateOAuthUser));
