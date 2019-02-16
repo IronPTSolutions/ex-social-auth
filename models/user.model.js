@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
+  console.log(this);
   if (this.email === FIRST_ADMIN_EMAIL) {
     this.role = constants.ROLE_ADMIN;
   }
